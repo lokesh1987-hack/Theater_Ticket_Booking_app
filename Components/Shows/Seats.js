@@ -3,28 +3,65 @@ import Seat from '../Seat'
 
 function Seats({ seats, price, area, UserDatafunc, userData }) {
 
-    const [bookedSeat, setBookedSeat] = useState()
+    const [bookedSeat, setBookedSeat] = useState([])
     const [chairs, setChairs] = useState(seats)
-    const [selectedSeat, setSelectedSeat] = useState([])
+    const [selectedSeat, setSelectedSeat] = useState(null)
+    const [reload, setReload] = useState("")
 
     const arr = []
-    // const arr2 = []
-
 
     function handler(e) {
         arr.push(e)
-
-        if(arr.length > userData.numberOfSeats){
+        console.log(userData.numberOfSeats)
+        if (arr.length > userData.numberOfSeats) {
             arr.shift()
-            arr.map((item)=>{
-                item.flag = true
-            })
-            setSelectedSeat(arr)
-            
-        }
-        console.log(selectedSeat)
+            UserDatafunc([...arr],"Booked_seat")
+            console.log("Shift arr", arr)
+            chairs.map((item) => {
+                item.column.map((col) => {
+                    const { row, column_no } = col
+                    arr.map((selected, i) => {
+                        if (selected.row === row && selected.column_no === column_no) {
+                            console.log(col)
+                            col.flag = true
+                        }
+                        else {
+                            col.flag = false
 
-          
+                        }
+                    })
+                })
+            })
+            console.log("chairs1", chairs)
+            
+            // setChairs(chairs)
+            // setReload("mast")
+
+        }
+        else {
+            chairs.map((item) => {
+                item.column.map((col) => {
+                    const { row, column_no } = col
+                    arr.map((selected, i) => {
+                        if (selected.row === row && selected.column_no === column_no) {
+                            console.log(col)
+                            col.flag = true
+                        }
+                        else {
+                            col.flag = false
+
+                        }
+                    })
+                })
+            })
+            
+            // const data = chairs
+            UserDatafunc([...arr],"Booked_seat")
+            console.log("chairs", chairs)
+            // setChairs(data)
+            // setReload("masT NHI")
+        }
+        // console.log("selectedSeat",selectedSeat)           
     }
 
     chairs?.map((item) => {

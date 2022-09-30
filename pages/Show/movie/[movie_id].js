@@ -62,7 +62,7 @@ function Movie({ movies_show }) {
                 setUserData({...userData,numberOfSeats:A})
                 break;
             default:
-                console.log("A",A)
+                console.log("switch",[{...A}])
                 break;
         }
     }
