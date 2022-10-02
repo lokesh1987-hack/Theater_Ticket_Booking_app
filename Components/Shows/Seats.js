@@ -15,7 +15,7 @@ function Seats({ seats, price, area, UserDatafunc, userData }) {
         console.log(userData.numberOfSeats)
         if (arr.length > userData.numberOfSeats) {
             arr.shift()
-            UserDatafunc([...arr],"Booked_seat")
+            UserDatafunc(arr,"Booked_seat")
             console.log("Shift arr", arr)
             chairs.map((item) => {
                 item.column.map((col) => {
@@ -33,12 +33,9 @@ function Seats({ seats, price, area, UserDatafunc, userData }) {
                 })
             })
             console.log("chairs1", chairs)
-            
-            // setChairs(chairs)
-            // setReload("mast")
-
         }
-        else {
+        else if(arr.length == userData.numberOfSeats) {
+            console.log("Shift arr", arr)
             chairs.map((item) => {
                 item.column.map((col) => {
                     const { row, column_no } = col
@@ -56,11 +53,14 @@ function Seats({ seats, price, area, UserDatafunc, userData }) {
             })
             
             // const data = chairs
-            UserDatafunc([...arr],"Booked_seat")
+            UserDatafunc(arr,"Booked_seat")
             console.log("chairs", chairs)
-            // setChairs(data)
-            // setReload("masT NHI")
         }
+        else
+        {
+            console.log("Please select all seat first")
+        }
+
         // console.log("selectedSeat",selectedSeat)           
     }
 

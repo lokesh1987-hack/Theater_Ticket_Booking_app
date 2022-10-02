@@ -43,26 +43,26 @@ function Movie({ movies_show }) {
 
     const [component, setComponent] = useState(0)
     const [userData, setUserData] = useState({
-        timing : "",
-        numberOfSeats : 0,
-        seats :[],
+        timing: "",
+        numberOfSeats: 0,
+        seats: [],
     })
 
     const componentHandler = (e) => {
         setComponent(e)
         console.log(userData)
     }
-    const UserDatafunc =(e)=>{
-        const[A , B ] = e
+    const UserDatafunc = (e) => {
+        const [A, B] = e
         switch (B) {
             case "Show_time":
-                setUserData({...userData,timing:A})
+                setUserData({ ...userData, timing: A })
                 break;
             case "number_Of_Ticket":
-                setUserData({...userData,numberOfSeats:A})
+                setUserData({ ...userData, numberOfSeats: A })
                 break;
             default:
-                console.log("switch",[{...A}])
+                console.log("switch", A)
                 break;
         }
     }
@@ -75,28 +75,30 @@ function Movie({ movies_show }) {
             <Container>
                 <h1 className="text-center">Book Your Seats</h1>
                 <Movie_Description details={[movieName, img, describe, categaries, age]} />
-            
-            <div className="row m-2">
-                <div className="col col-lg-2 col-md-2 bg-light pt-2">
-                    {component ? <Button onClick={() => { setComponent(component - 1) }} >Back_</Button> : <Button disabled>Back_</Button>}
+
+                <div className='container' >
+                    <div className="row m-2 bg-light p-2">
+                        <div className="col col-xs-3 col-sm-12 col-lg-2 col-md-2  bg-light ">
+                            {component ? <Button onClick={() => { setComponent(component - 1) }} >Back_</Button> : <Button disabled>Back_</Button>}
+                        </div>
+                        <Navigator component={component} />
+                    </div>
                 </div>
-                <Navigator component={component} />
-            </div>
-            
 
-            <div className=" border " style={{ height: "auto",padding:"0px,0px" }} >
-                {/* <div className="row row-cols-4 justify-content-center border align-items-center mb-5" style={{height:"20rem"}} > */}
 
-                {(component == 0) && <Booking_Button componentHandler={componentHandler} />}
-                {Ontheater ?
-                    <div>
-                        {(component == 1) && <Shows shows={shows} componentHandler={componentHandler} UserDatafunc={UserDatafunc} userData={userData} />}
-                        {(component == 2) && <Seats seating_arrangement={seating_arrangement} UserDatafunc={UserDatafunc} componentHandler={componentHandler} userData={userData} />}
-                        {(component == 3) && <Billing_Page />}
-                    </div> : <h1>Sorry, This is not on Theater </h1>
-                }
+                <div className=" border " style={{ height: "auto", padding: "0px,0px" }} >
+                    {/* <div className="row row-cols-4 justify-content-center border align-items-center mb-5" style={{height:"20rem"}} > */}
 
-            </div>
+                    {(component == 0) && <Booking_Button componentHandler={componentHandler} />}
+                    {Ontheater ?
+                        <div>
+                            {(component == 1) && <Shows shows={shows} componentHandler={componentHandler} UserDatafunc={UserDatafunc} userData={userData} />}
+                            {(component == 2) && <Seats seating_arrangement={seating_arrangement} UserDatafunc={UserDatafunc} componentHandler={componentHandler} userData={userData} />}
+                            {(component == 3) && <Billing_Page />}
+                        </div> : <h1>Sorry, This is not on Theater </h1>
+                    }
+
+                </div>
             </Container>
         </div>
     )
